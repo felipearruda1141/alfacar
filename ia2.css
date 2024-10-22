@@ -1,0 +1,43 @@
+
+
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+}
+.titulo {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+.image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.image.active {
+    width: 400px;
+    height: 400px;
+    z-index: 1;
+}
+
+body.image1 {
+    background: linear-gradient(to right, #ff0404, #000000, #ff7300);
+}
+
+body.image2 {
+    background: linear-gradient(to right, #48cae4, #0e79ab, #053e6b);
+}
+
+body.image3 {
+    background: linear-gradient(to right, #6b6b6b, #ffffff, #000000);
+}
