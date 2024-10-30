@@ -1,0 +1,9 @@
+/* Adicione aqui suas regras de estilo */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+body {
+  background-image: linear-gradient(to right, #f0f0f0, #008080);
+}
