@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, orange, black, green);
+}
+
+.imagem {
+    width: 25%;
+    height: auto;
+}
+
+.hidden {
+        display: none;}
