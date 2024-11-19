@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cálculo de Folha de Pagamento</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #8E44AD, #FFFFFF);
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .logo {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="banco.png" alt="Sua Logo">
+        </div>
+        <h1>Cálculo de Folha de Pagamento</h1>
+        <form id="calculoForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <br>
+            <label for="salario">Salário Bruto:</label>
+            <input type="number" id="salario" name="salario" required>
+            <br>
+            <button type="button" onclick="calcular()">Calcular</button>
+        </form>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function calcular() {
+            const   
+ nome = document.getElementById("nome").value;
+            const salarioBruto = parseFloat(document.getElementById("salario").value);
+            const resultadoDiv = document.getElementById("resultado");
+
+            let imposto = 0;
+            if (salarioBruto > 5000) {
+                imposto = salarioBruto * 0.175;
+            } else if (salarioBruto > 4000) {
+                imposto = salarioBruto * 0.12;
+            } else if (salarioBruto > 3000) {
+                imposto = salarioBruto * 0.075;
+            } else if (salarioBruto > 1800) {
+                imposto = salarioBruto * 0.035;
+            }
+
+            const salarioLiquido = salarioBruto - imposto;
+
+            resultadoDiv.innerHTML = `
+                <p>Nome: ${nome}</p>
+                <p>Salário Bruto: R$ ${salarioBruto.toFixed(2)}</p>
+                <p>Imposto de Renda: R$ ${imposto.toFixed(2)}</p>
+                <p>Salário Líquido: R$ ${salarioLiquido.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
