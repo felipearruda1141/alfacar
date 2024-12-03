@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        body {
+            background: linear-gradient(to right, purple, white);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            font-size: 14px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <input type="file" id="logo" class="logo-input" accept="image/*" onchange="loadLogo(event)" />
+        <img id="banco.png" src="" class="logo" alt="Logo" style="display: none;" />
+    </div>
+
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="Digite o nome">
+    </div>
+
+    <div class="form-group">
+        <label for="salario">Salário:</label>
+        <input type="number" id="salario" placeholder="Digite o salário" onchange="calcularFolha()">
+    </div>
+
+    <div class="result">
+        <p><strong>Salário Bruto:</strong> R$ <span id="salario-bruto">0,00</span></p>
+        <p><strong>Imposto de Renda:</strong> R$ <span id="imposto">0,00</span></p>
+        <p><strong>Salário Líquido:</strong> R$ <span id="salario-liquido">0,00</span></p>
+    </div>
+</div>
+
+<script>
+    function loadLogo(event) {
+        const logo = document.getElementById("logo-img");
+        logo.src = URL.createObjectURL(event.target.files[0]);
+        logo.style.display = 'block';
+    }
+
+    function calcularFolha() {
+        const salario = parseFloat(document.getElementById("salario").value);
+        const salarioBruto = salario;
+        let imposto = 0;
+
+        if (salario > 5000) {
+            imposto = salario * 0.175;
+        } else if (salario > 4000) {
+            imposto = salario * 0.12;
+        } else if (salario > 3000) {
+            imposto = salario * 0.075;
+        } else if (salario > 1800) {
+            imposto = salario * 0.035;
+        }
+
+        const salarioLiquido = salario - imposto;
+
+        document.getElementById("salario-bruto").innerText = salarioBruto.toFixed(2);
+        document.getElementById("imposto").innerText = imposto.toFixed(2);
+        document.getElementById("salario-liquido").innerText = salarioLiquido.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
