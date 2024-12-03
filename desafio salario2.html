@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a1b9a, #ffffff);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+        }
+
+        h1 {
+            color: #6a1b9a;
+            font-size: 28px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #6a1b9a;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f4f4f4;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #6a1b9a;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #9c4d97;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Folha de Pagamento</h1>
+        <img class="logo" src="banco.png" alt="Logo">
+    </div>
+
+    <form id="formulario">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" placeholder="Digite o nome" required>
+
+        <label for="salario">Salário Bruto (R$):</label>
+        <input type="number" id="salario" placeholder="Digite o salário" required>
+
+        <button type="button" onclick="adicionarFuncionario()">Adicionar</button>
+    </form>
+
+    <table id="tabela">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Salário Bruto</th>
+                <th>Imposto de Renda</th>
+                <th>Salário Líquido</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Dados serão inseridos aqui -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function calcularImposto(salario) {
+        if (salario > 5000) {
+            return 0.175;
+        } else if (salario > 4000) {
+            return 0.12;
+        } else if (salario > 3000) {
+            return 0.075;
+        } else if (salario > 1800) {
+            return 0.035;
+        } else {
+            return 0;
+        }
+    }
+
+    function adicionarFuncionario() {
+        const nome = document.getElementById('nome').value;
+        const salarioBruto = parseFloat(document.getElementById('salario').value);
+
+        if (!nome || isNaN(salarioBruto)) {
+            alert("Por favor, preencha todos os campos corretamente.");
+            return;
+        }
+
+        const imposto = calcularImposto(salarioBruto);
+        const valorImposto = salarioBruto * imposto;
+        const salarioLiquido = salarioBruto - valorImposto;
+
+        const tabela = document.getElementById('tabela').getElementsByTagName('tbody')[0];
+
+        const novaLinha = tabela.insertRow();
+
+        novaLinha.innerHTML = `
+            <td>${nome}</td>
+            <td>R$ ${salarioBruto.toFixed(2)}</td>
+            <td>R$ ${valorImposto.toFixed(2)}</td>
+            <td>R$ ${salarioLiquido.toFixed(2)}</td>
+        `;
+
+        // Limpar campos após adicionar
+        document.getElementById('nome').value = '';
+        document.getElementById('salario').value = '';
+    }
+</script>
+
+</body>
+</html>
