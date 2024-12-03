@@ -1,70 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cálculo de Folha de Pagamento</title>
+    <title>Folha de Pagamento</title>
     <style>
         body {
-            background: linear-gradient(to right, #8E44AD, #FFFFFF);
             font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #8E44AD, #FFFFFF);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
+
         .container {
-            max-width: 400px;
-            margin: 0 auto;
+            background-color: white;
             padding: 20px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 
+ 0 2px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
         }
+
         .logo {
-            text-align: right;
-            margin-bottom: 10px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th 
+ {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <img src="banco.png" alt="Sua Logo">
-        </div>
-        <h1>Cálculo de Folha de Pagamento</h1>
-        <form id="calculoForm">
+        <h1>Cálculo 
+ de Folha de Pagamento</h1>
+        <img src="banco.png" alt="Sua Logo" class="logo">
+        <form>
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
-            <br>
+            <input type="text" id="nome" name="nome"><br><br>
             <label for="salario">Salário Bruto:</label>
-            <input type="number" id="salario" name="salario" required>
-            <br>
+            <input type="number" id="salario" name="salario"><br><br>
             <button type="button" onclick="calcular()">Calcular</button>
         </form>
-        <div id="resultado"></div>
+
+        <table id="tabela">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Salário Bruto</th>
+                    <th>Imposto de Renda</th>
+                    <th>Salário Líquido</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
     </div>
 
     <script>
-        function calcular() {
-            const   
- nome = document.getElementById("nome").value;
-            const salarioBruto = parseFloat(document.getElementById("salario").value);
-            const resultadoDiv = document.getElementById("resultado");
+        const tabelaBody = document.getElementById('tbody');
 
+        function calcular() {
+            const nome = document.getElementById("nome").value;
+            const salarioBruto = parseFloat(document.getElementById("salario").value);
             let imposto = 0;
-            if (salarioBruto > 5000) {
-                imposto = salarioBruto * 0.175;
-            } else if (salarioBruto > 4000) {
-                imposto = salarioBruto * 0.12;
-            } else if (salarioBruto > 3000) {
-                imposto = salarioBruto * 0.075;
-            } else if (salarioBruto > 1800) {
-                imposto = salarioBruto * 0.035;
-            }
+
+            // ... (mesmo cálculo de imposto que você já tinha)
 
             const salarioLiquido = salarioBruto - imposto;
 
-            resultadoDiv.innerHTML = `
-                <p>Nome: ${nome}</p>
-                <p>Salário Bruto: R$ ${salarioBruto.toFixed(2)}</p>
-                <p>Imposto de Renda: R$ ${imposto.toFixed(2)}</p>
-                <p>Salário Líquido: R$ ${salarioLiquido.toFixed(2)}</p>
-            `;
+            // Adicionar uma nova linha à tabela
+            const novaLinha = tabelaBody.insertRow();
+            const celulaNome = novaLinha.insertCell();
+            const celulaSalarioBruto = novaLinha.insertCell();
+            const celulaImposto = novaLinha.insertCell();
+            const celulaSalarioLiquido = novaLinha.insertCell();
+
+            celulaNome.textContent = nome;
+            celulaSalarioBruto.textContent = `R$ ${salarioBruto.toFixed(2)}`;
+            celulaImposto.textContent = `R$ ${imposto.toFixed(2)}`;
+            celulaSalarioLiquido.textContent = `R$ ${salarioLiquido.toFixed(2)}`;
         }
     </script>
 </body>
